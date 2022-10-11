@@ -4,6 +4,14 @@ import java.util.Scanner;
 
 public class MenuExample {
 
+    ConfigGame configGame = new ConfigGame();
+    Game game = new Game();
+
+    public MenuExample(ConfigGame configGame, Game game) {
+        this.configGame = configGame;
+        this.game = game;
+    }
+
     public void menu(){
         Scanner scanner = new Scanner(System.in);
 
@@ -27,9 +35,7 @@ public class MenuExample {
             int escollirfuncio = scanner.nextInt();
 
             if (escollirfuncio == 1){
-                System.out.println();
-                System.out.println("Juego");
-                System.out.println();
+                game.jugar();
             }
             if (escollirfuncio == 2){
 
@@ -39,9 +45,9 @@ public class MenuExample {
                     String level = "2. LEVEL";
                     String tornar = "3. RETURN";
 
-                    System.out.println();
-                    System.out.println("Configuracion");
-                    System.out.println();
+                    System.out.println("**************************************");
+                    System.out.println("          CONFIGURACIO JOC            ");
+                    System.out.println("**************************************");
 
                     System.out.println(players);
                     System.out.println(level);
@@ -53,27 +59,37 @@ public class MenuExample {
                     if (escollirConfiguracio == 1){
                         System.out.print("Quants jugadors vols que juguin a la proxima partida (Maxim 4): ");
                         int numJugadors = scanner.nextInt();
+                        configGame.setNumJugadors(numJugadors);
 
                         if (numJugadors > 4){
-                            System.out.println("EL NUMERO MAXIM DE JUGADORS PER PARTIDA ES 4");
-                        }else {
                             System.out.println();
-                            System.out.println("Has escollit " + numJugadors + " jugadors per a la teva proxima partida!");
+                            System.out.println("EL NUMERO MAXIM DE JUGADORS PER PARTIDA ES 4");
+                            System.out.println();
+                        } else if (numJugadors == 0){
+                            System.out.println();
+                            System.out.println("ES REQUEREIX MINIM 1 JUGADOR");
+                            System.out.println();
+                        } else {
+                            System.out.println();
+                            System.out.println("Has escollit " + configGame.getNumJugadors() + " jugadors per a la teva proxima partida!");
                             System.out.println();
                         }
                     }
                     if (escollirConfiguracio == 2){
-                        System.out.println("Escull la dificultad del joc que vols a la teva proxima partida (1 - 5): ");
+                        System.out.print("Escull la dificultad del joc que vols a la teva proxima partida (1 - 5): ");
                         int dificultat = scanner.nextInt();
+                        configGame.setNivell(dificultat);
 
-                        if (dificultat > 5){
-                            System.out.println("NUMERO DE DIFICULTAT NO VALID");
-
-                        } else {
+                        if (dificultat == 0 || dificultat > 5){
                             System.out.println();
-                            System.out.println("Has escollit una dificultat " + dificultat + " per a la teva proxima partida!");
+                            System.out.println("NUMERO DE DIFICULTAT NO VALID");
+                            System.out.println();
+                        }else {
+                            System.out.println();
+                            System.out.println("Has escollit una dificultat " + configGame.getNivell() + " per a la teva proxima partida!");
                             System.out.println();
                         }
+
                     }
                     if (escollirConfiguracio == 3){
                         break;
